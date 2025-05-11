@@ -6,9 +6,15 @@ function App() {
   const [form, setForm] = useState({ username: "", password: "", action: "login" });
 
   const handleSubmit = async () => {
-    const res = await axios.post("http://localhost:8000/auth/", form);
-    alert(JSON.stringify(res.data));
+    try {
+      const res = await axios.post("http://localhost:8000/auth/", form);
+      alert(JSON.stringify(res.data));
+    } catch (err) {
+      console.error("💥 Auth error:", err.response?.data || err.message);
+      alert("Error: " + (err.response?.data?.error || "Something went wrong"));
+    }
   };
+  
 
   return (
     <div>
